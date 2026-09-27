@@ -1,12 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>MedFlow - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <div class="container-principal">
+        
+        <nav class="menu-lateral">
+            <h2 class="logo">MedFlow 🏥</h2>
+            <ul class="lista-menu">
+                <li><a href="#" class="selecionado">📊 Dashboard</a></li>
+                <li><a href="pacientes.html">👤 Pacientes</a></li>
+                <li><a href="#">⚕️ Profissionais</a></li>
+                <li><a href="#">📅 Consultas</a></li>
+                <li><a href="#">🛏️ Internações e Quartos</a></li>
+            </ul>
+        </nav>
+
+        <main class="conteudo">
+            <h1>Visão Geral</h1>
+            
+            <div class="cartoes">
+                <div class="cartao azul">
+                    <h3>Consultas Hoje</h3>
+                    <p class="numero">24</p>
+                </div>
+                <div class="cartao verde">
+                    <h3>Pacientes Internados</h3>
+                    <p class="numero">12</p>
+                </div>
+                <div class="cartao amarelo">
+                    <h3>Quartos Disponíveis</h3>
+                    <p class="numero">8</p>
+                </div>
+                <div class="cartao vermelho">
+                    <h3>Médicos de Plantão</h3>
+                    <p class="numero">5</p>
+                </div>
+            </div>
+
+            <div class="caixa-tabela">
+                <h2>Próximas Consultas</h2>
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Horário</th>
+                            <th>Paciente</th>
+                            <th>Profissional</th>
+                            <th>Especialidade</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14:30</td>
+                            <td>João Silva</td>
+                            <td>Dra. Ana Paula</td>
+                            <td>Cardiologia</td>
+                            <td><button class="btn">Ver Detalhes</button></td>
+                        </tr>
+                        <tr>
+                            <td>15:00</td>
+                            <td>Maria Oliveira</td>
+                            <td>Dr. Carlos Mendes</td>
+                            <td>Ortopedia</td>
+                            <td><button class="btn">Ver Detalhes</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+    </div>
+
 </body>
 </html>
