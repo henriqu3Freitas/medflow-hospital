@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pacientes | MedFlow</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="container-principal">
+<nav class="menu-lateral"><h2 class="logo">MedFlow 🏥</h2><ul class="lista-menu">
+<li><a href="index.html" data-pagina="dashboard">📊 Dashboard</a></li><li><a href="pacientes.html" data-pagina="pacientes">👤 Pacientes</a></li><li><a href="profissionais.html" data-pagina="profissionais">⚕️ Profissionais</a></li><li><a href="consultas.html" data-pagina="consultas">📅 Consultas</a></li><li><a href="internacoes.html" data-pagina="internacoes">🛏️ Internações e Quartos</a></li>
+</ul></nav>
+<main class="conteudo"><div class="barra-cabecalho"><h1>Pacientes</h1><button class="btn-principal" onclick="document.querySelector('#formulario').scrollIntoView()">+ Novo paciente</button></div>
+<div id="mensagem" class="mensagem"></div>
+<form id="formulario" class="formulario"><h2>Cadastrar paciente</h2>
+<div class="campo-grupo"><label for="nome">Nome completo</label><input class="campo" id="nome" required></div>
+<div class="campo-grupo"><label for="cpf">CPF</label><input class="campo" id="cpf" required></div>
+<div class="campo-grupo"><label for="dataNascimento">Data de nascimento</label><input class="campo" id="dataNascimento" type="date"></div>
+<div class="campo-grupo"><label for="telefone">Telefone</label><input class="campo" id="telefone"></div>
+<div class="campo-grupo"><label for="email">E-mail</label><input class="campo" id="email" type="email"></div>
+<div class="campo-grupo acoes"><button class="btn-principal">Salvar paciente</button><button type="reset" class="btn-secundario">Limpar</button></div></form>
+<section class="caixa-tabela"><div class="barra-cabecalho"><h2>Pacientes cadastrados</h2><input id="busca" class="campo filtro" placeholder="Buscar por nome ou CPF"></div><table class="tabela"><thead><tr><th>Nome</th><th>CPF</th><th>Nascimento</th><th>Telefone</th><th>E-mail</th></tr></thead><tbody id="lista"></tbody></table></section>
+</main></div>
+<script src="app.js"></script><script>
+menuAtivo('pacientes'); let pacientes = [];
+function render() { const termo = valor('busca').toLowerCase(); preencherTabela('lista', pacientes.filter(p => `${p.nome} ${p.cpf}`.toLowerCase().includes(termo)).map(p => `<tr><td>${p.nome}</td><td>${p.cpf}</td><td>${p.dataNascimento || '-'}</td><td>${p.telefone || '-'}</td><td>${p.email || '-'}</td></tr>`).join('')); }
+async function carregar() { try { pacientes = await api('/pacientes'); render(); } catch (e) { mostrarMensagem(e.message, 'erro'); } }
+document.querySelector('#busca').addEventListener('input', render);
+document.querySelector('#formulario').addEventListener('submit', async e => { e.preventDefault(); try { await api('/pacientes', { method:'POST', body: JSON.stringify({ nome:valor('nome'), cpf:valor('cpf'), dataNascimento:valor('dataNascimento') || null, telefone:valor('telefone'), email:valor('email') }) }); e.target.reset(); mostrarMensagem('Paciente cadastrado com sucesso.'); carregar(); } catch (x) { mostrarMensagem(x.message, 'erro'); } });
+carregar();
+</script></body></html>

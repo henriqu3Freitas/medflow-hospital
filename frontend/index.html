@@ -13,11 +13,11 @@
         <nav class="menu-lateral">
             <h2 class="logo">MedFlow 🏥</h2>
             <ul class="lista-menu">
-                <li><a href="#" class="selecionado">📊 Dashboard</a></li>
-                <li><a href="pacientes.html">👤 Pacientes</a></li>
-                <li><a href="#">⚕️ Profissionais</a></li>
-                <li><a href="#">📅 Consultas</a></li>
-                <li><a href="#">🛏️ Internações e Quartos</a></li>
+                <li><a href="index.html" data-pagina="dashboard">📊 Dashboard</a></li>
+                <li><a href="pacientes.html" data-pagina="pacientes">👤 Pacientes</a></li>
+                <li><a href="profissionais.html" data-pagina="profissionais">⚕️ Profissionais</a></li>
+                <li><a href="consultas.html" data-pagina="consultas">📅 Consultas</a></li>
+                <li><a href="internacoes.html" data-pagina="internacoes">🛏️ Internações e Quartos</a></li>
             </ul>
         </nav>
 
@@ -76,6 +76,23 @@
         </main>
 
     </div>
-
+    <script src="app.js"></script>
+    <script>
+        menuAtivo('dashboard');
+        async function carregarDashboard() {
+            try {
+                const [pacientes, profissionais, consultas, quartos, internacoes] = await Promise.all([
+                    api('/pacientes'), api('/profissionais'), api('/consultas'), api('/quartos'), api('/internacoes')
+                ]);
+                document.querySelector('.azul .numero').textContent = consultas.filter(c => c.dataHora && c.dataHora.startsWith(new Date().toISOString().slice(0, 10))).length;
+                document.querySelector('.verde .numero').textContent = internacoes.filter(i => i.ativa).length;
+                document.querySelector('.amarelo .numero').textContent = quartos.filter(q => q.disponivel).length;
+                document.querySelector('.vermelho .numero').textContent = profissionais.length;
+                const tbody = document.querySelector('.tabela tbody');
+                tbody.innerHTML = consultas.slice(0, 5).map(c => `<tr><td>${formatarData(c.dataHora)}</td><td>${c.pacienteId}</td><td>${c.profissionalId}</td><td>${c.especialidade || 'Rotina'}</td><td><span class="status status-${c.status.toLowerCase()}">${c.status}</span></td></tr>`).join('') || '<tr><td colspan="5" class="vazio">Nenhuma consulta cadastrada.</td></tr>';
+            } catch (e) { /* API pode estar desligada ao abrir o frontend */ }
+        }
+        carregarDashboard();
+    </script>
 </body>
 </html>

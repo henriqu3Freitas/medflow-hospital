@@ -7,6 +7,7 @@
 
 body {
     background-color: #f8f9fa;
+    color: #212529;
 }
 
 .container-principal {
@@ -15,7 +16,7 @@ body {
 }
 
 .menu-lateral {
-    width: 250px;
+    width: 230px;
     background-color: #212529;
     color: white;
     padding: 20px;
@@ -55,6 +56,7 @@ body {
 .conteudo {
     flex-grow: 1;
     padding: 30px;
+    max-width: 1500px;
 }
 
 h1 {
@@ -151,4 +153,74 @@ h1 {
 
 .btn:hover {
     background-color: #0bacce;
+}
+
+.barra-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.barra-acoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-principal, .btn-secundario, .btn-perigo {
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 16px;
+}
+
+.btn-principal { background: #0d6efd; }
+.btn-principal:hover { background: #0b5ed7; }
+.btn-secundario { background: #6c757d; }
+.btn-perigo { background: #dc3545; }
+
+.campo, select {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+}
+
+.formulario {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.05);
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 22px;
+    padding: 20px;
+}
+
+.formulario h2, .campo-grupo.acoes { grid-column: 1 / -1; }
+.campo-grupo label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+.campo-grupo.acoes { display: flex; gap: 10px; }
+.mensagem { border-radius: 5px; display: none; margin-bottom: 15px; padding: 10px; }
+.mensagem.erro { background: #f8d7da; color: #842029; display: block; }
+.mensagem.sucesso { background: #d1e7dd; color: #0f5132; display: block; }
+.vazio { color: #6c757d; padding: 25px; text-align: center; }
+.status { border-radius: 12px; display: inline-block; font-size: 12px; padding: 4px 9px; }
+.status-agendada, .status-aguardando { background: #fff3cd; color: #664d03; }
+.status-confirmada, .status-em_atendimento { background: #cff4fc; color: #055160; }
+.status-concluida { background: #d1e7dd; color: #0f5132; }
+.status-cancelada, .status-nao_compareceu { background: #f8d7da; color: #842029; }
+.filtro { max-width: 240px; }
+
+@media (max-width: 800px) {
+    .menu-lateral { min-height: auto; width: 100%; }
+    .container-principal { display: block; }
+    .lista-menu { display: flex; flex-wrap: wrap; gap: 5px; }
+    .lista-menu a { margin-bottom: 0; }
+    .conteudo { padding: 20px 14px; }
+    .cartoes, .formulario { grid-template-columns: 1fr; display: grid; }
+    .caixa-tabela { overflow-x: auto; }
 }
